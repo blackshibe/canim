@@ -13,7 +13,7 @@
     
     
       
-        <title>Typescript - Canim Documentation</title>
+        <title>Canim - Canim Documentation</title>
       
     
     
@@ -34,6 +34,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
     <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -59,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#typescript" class="md-skip">
+        <a href="#canim" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Typescript
+              Canim
             
           </span>
         </div>
@@ -228,30 +230,16 @@
       
       
         <label class="md-nav__link" for="__nav_2">
-          Installation
+          API
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+      <nav class="md-nav" aria-label="API" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
-          Installation
+          API
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../Luau/" class="md-nav__link">
-        Luau
-      </a>
-    </li>
-  
-
-            
           
             
               
@@ -268,10 +256,296 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Canim
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Typescript
+        Canim
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimassign_model" class="md-nav__link">
+    Canim.assign_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimload_animation" class="md-nav__link">
+    Canim.load_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimload_pose" class="md-nav__link">
+    Canim.load_pose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplay_animation" class="md-nav__link">
+    Canim.play_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplay_pose" class="md-nav__link">
+    Canim.play_pose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimstop_animation" class="md-nav__link">
+    Canim.stop_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimupdate" class="md-nav__link">
+    Canim.update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimdestroy" class="md-nav__link">
+    Canim.destroy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimanimations" class="md-nav__link">
+    Canim.animations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplaying_animations" class="md-nav__link">
+    Canim.playing_animations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplaying_poses" class="md-nav__link">
+    Canim.playing_poses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimdebug" class="md-nav__link">
+    Canim.debug
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Exports/" class="md-nav__link">
+        Exports
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Pose/" class="md-nav__link">
+        CanimPose
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Track/" class="md-nav__link">
+        CanimTrack
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Luau/" class="md-nav__link">
+        Luau
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Typescript/" class="md-nav__link">
+        Typescript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
     </li>
   
 
@@ -303,6 +577,124 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimassign_model" class="md-nav__link">
+    Canim.assign_model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimload_animation" class="md-nav__link">
+    Canim.load_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimload_pose" class="md-nav__link">
+    Canim.load_pose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplay_animation" class="md-nav__link">
+    Canim.play_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplay_pose" class="md-nav__link">
+    Canim.play_pose
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimstop_animation" class="md-nav__link">
+    Canim.stop_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimupdate" class="md-nav__link">
+    Canim.update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimdestroy" class="md-nav__link">
+    Canim.destroy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimanimations" class="md-nav__link">
+    Canim.animations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplaying_animations" class="md-nav__link">
+    Canim.playing_animations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimplaying_poses" class="md-nav__link">
+    Canim.playing_poses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimdebug" class="md-nav__link">
+    Canim.debug
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -313,55 +705,97 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/blackshibe/canim/edit/master/docs/installation/Typescript.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/blackshibe/canim/edit/master/docs/API/Canim.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
-<h1 id="typescript">Typescript<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h1>
-<p>simply run <code>npm i @rbxts/canim</code> inside a roblox-ts project.</p>
-<p>You should be able to use canim now:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Canim</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@rbxts/canim&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="c1">// R15 default dummy</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">game</span><span class="p">.</span><span class="nx">GetService</span><span class="p">(</span><span class="s2">&quot;Workspace&quot;</span><span class="p">).</span><span class="nx">WaitForChild</span><span class="p">(</span><span class="s2">&quot;dummy&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Model</span><span class="p">;</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">animator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Canim</span><span class="p">();</span><span class="w"></span>
-<span class="nx">animator</span><span class="p">.</span><span class="nx">assign_model</span><span class="p">(</span><span class="nx">character</span><span class="p">);</span><span class="w"></span>
-
-<span class="c1">// loading poses is the same, but only the 1st keyframe is used.</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">animation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">animator</span><span class="p">.</span><span class="nx">load_animation</span><span class="p">(</span><span class="s2">&quot;dance&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;rbxassetid://507771019&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">animation</span><span class="p">.</span><span class="nx">finished_loading</span><span class="p">.</span><span class="nx">Wait</span><span class="p">();</span><span class="w"></span>
-
-<span class="c1">// automatic retrying is not implemented</span><span class="w"></span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">animation</span><span class="p">.</span><span class="nx">sequence</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="s2">&quot;animation couldn&#39;t load&quot;</span><span class="p">;</span><span class="w"></span>
-
-<span class="c1">// the animation will play with lowered rotation and with unaffected position</span><span class="w"></span>
-<span class="nx">animation</span><span class="p">.</span><span class="nx">looped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="nx">animation</span><span class="p">.</span><span class="nx">bone_weights</span><span class="p">.</span><span class="nx">__CANIM_DEFAULT_BONE_WEIGHT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// x y z</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// rx ry rz</span><span class="w"></span>
-<span class="w">    </span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">],</span><span class="w"></span>
-<span class="p">];</span><span class="w"></span>
-
-<span class="nx">animation</span><span class="p">.</span><span class="nx">keyframe_reached</span><span class="p">.</span><span class="nx">Connect</span><span class="p">((</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;marker reached:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
-
-<span class="nx">animation</span><span class="p">.</span><span class="nx">started</span><span class="p">.</span><span class="nx">Connect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;started&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
-
-<span class="nx">animation</span><span class="p">.</span><span class="nx">finished</span><span class="p">.</span><span class="nx">Connect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">print</span><span class="p">(</span><span class="s2">&quot;finished&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
-
-<span class="nx">animator</span><span class="p">.</span><span class="nx">play_animation</span><span class="p">(</span><span class="s2">&quot;dance&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">game</span><span class="p">.</span><span class="nx">GetService</span><span class="p">(</span><span class="s2">&quot;RunService&quot;</span><span class="p">).</span><span class="nx">RenderStepped</span><span class="p">.</span><span class="nx">Connect</span><span class="p">((</span><span class="nx">delta_time</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">animator</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">delta_time</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<h1 id="canim">Canim<a class="headerlink" href="#canim" title="Permanent link">&para;</a></h1>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="canimassign_model">Canim.assign_model<a class="headerlink" href="#canimassign_model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.assign_model(model: Model): void
 </code></pre></div>
+<p>Connects a model to the animator.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You can run this multiple times.</p>
+</div>
+<hr />
+<h3 id="canimload_animation">Canim.load_animation<a class="headerlink" href="#canimload_animation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.load_animation(name: string, priority: number, id: string | KeyframeSequence): CanimTrack 
+</code></pre></div>
+<p>Registers and begins loading the given animation. It can then be played with <a href="/API/Canim/#canimload_animation">Canim.load_animation</a> using the name provided to load_animation. <br/></p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This does not yield! you must wait for the animation to finish loading. See <a href="#Track.finished_loading">CanimTrack.finished_loading</a>.</p>
+</div>
+<hr />
+<h3 id="canimload_pose">Canim.load_pose<a class="headerlink" href="#canimload_pose" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.load_pose(name: string, priority: number, id: string | KeyframeSequence): CanimPose
+</code></pre></div>
+<p>Registers and begins loading the given pose. It can then be played with <a href="/API/Canim/#canimplay_pose">Canim.play_pose</a> using the name provided to load_pose. <br/>
+This takes in an AnimationTrack of any given animation length. Only the first frame of it is used.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This does not yield! you must wait for the animation to finish loading. See <a href="#Pose.finished_loading">CanimPose.finished_loading</a>.</p>
+</div>
+<hr />
+<h3 id="canimplay_animation">Canim.play_animation<a class="headerlink" href="#canimplay_animation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.play_animation(id: string): void
+</code></pre></div>
+<p>Plays a track.</p>
+<hr />
+<h3 id="canimplay_pose">Canim.play_pose<a class="headerlink" href="#canimplay_pose" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.play_pose(id: string): void
+</code></pre></div>
+<p>Plays a pose.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>You can run this multiple times.</p>
+</div>
+<hr />
+<h3 id="canimstop_animation">Canim.stop_animation<a class="headerlink" href="#canimstop_animation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.stop_animation(name: string): void
+</code></pre></div>
+<p>Stops playing any given pose or track.</p>
+<hr />
+<h3 id="canimupdate">Canim.update<a class="headerlink" href="#canimupdate" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.update(delta_time: number): void
+</code></pre></div>
+<p>Steps the animation player forward by <code>delta_time</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Canim does not connect this to RunService automatically!</p>
+</div>
+<hr />
+<h3 id="canimdestroy">Canim.destroy<a class="headerlink" href="#canimdestroy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.destroy(): void
+</code></pre></div>
+<p>Cleans up the class and all animations.</p>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="canimanimations">Canim.animations<a class="headerlink" href="#canimanimations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.animations: { [index: string]: CanimTrack | CanimPose | undefined; } = {};
+</code></pre></div>
+<p>Array of loaded animations.</p>
+<hr />
+<h3 id="canimplaying_animations">Canim.playing_animations<a class="headerlink" href="#canimplaying_animations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.playing_animations: CanimTrack[]
+</code></pre></div>
+<p>Array of playing tracks.</p>
+<hr />
+<h3 id="canimplaying_poses">Canim.playing_poses<a class="headerlink" href="#canimplaying_poses" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.playing_poses: CanimPose[]
+</code></pre></div>
+<p>Array of playing poses.</p>
+<hr />
+<h3 id="canimdebug">Canim.debug<a class="headerlink" href="#canimdebug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Canim.debug: string[]
+</code></pre></div>
+<p>Contains information about currently playing tracks and poses.</p>
+<hr />
 
               
             </article>
@@ -375,7 +809,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../Luau/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Luau" rel="prev">
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -384,11 +818,26 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Luau
+              Home
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../Exports/" class="md-footer__link md-footer__link--next" aria-label="Next: Exports" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Exports
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
