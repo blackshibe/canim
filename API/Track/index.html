@@ -975,7 +975,7 @@
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimtrackload_sequence">CanimTrack.load_sequence<a class="headerlink" href="#canimtrackload_sequence" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.load_sequence(id: string | KeyframeSequence): void
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">load_sequence</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">KeyframeSequence</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Loads the AnimationTrack for the track. Does not yield and fires finished_loading when it's finished.</p>
 <div class="admonition caution">
@@ -985,34 +985,34 @@
 <h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimtrackkeyframe_reached">CanimTrack.keyframe_reached<a class="headerlink" href="#canimtrackkeyframe_reached" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.keyframe_reached: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.keyframe_reached</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when a named keyframe is stepped over by the animator.</p>
 <hr />
 <h3 id="canimtrackfinished_loading">CanimTrack.finished_loading<a class="headerlink" href="#canimtrackfinished_loading" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.finished_loading: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.finished_loading</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation finishes loading.</p>
 <hr />
 <h3 id="canimtrackstarted">CanimTrack.started<a class="headerlink" href="#canimtrackstarted" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.started: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.started</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation starts.</p>
 <hr />
 <h3 id="canimtrackfinished">CanimTrack.finished<a class="headerlink" href="#canimtrackfinished" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.finished: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.finished</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation ends.</p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimtracksequence">CanimTrack.sequence<a class="headerlink" href="#canimtracksequence" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.sequence?: customKeyframe
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.sequence?</span><span class="o">:</span><span class="w"> </span><span class="kt">customKeyframe</span><span class="w"></span>
 </code></pre></div>
 <p>Contains animation data that Canim interprets. You can edit this to change the animation data.
 nil if the animation is unloaded.</p>
 <hr />
 <h3 id="canimtrackbone_weights">CanimTrack.bone_weights<a class="headerlink" href="#canimtrackbone_weights" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.bone_weights: { [index: string]: number | undefined } = {};
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">bone_weights</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </code></pre></div>
 <p>Controls how much individual axis of individual Motor6D Transforms are affected by this animation. <br/>
 you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all bones:
@@ -1029,62 +1029,62 @@ you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all
 </div>
 <hr />
 <h3 id="canimtrackname">CanimTrack.name<a class="headerlink" href="#canimtrackname" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.name: string
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
 </code></pre></div>
 <p>Name of the track.</p>
 <hr />
 <h3 id="canimtrackpriority">CanimTrack.priority<a class="headerlink" href="#canimtrackpriority" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.priority: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.priority</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Priority of the track.</p>
 <hr />
 <h3 id="canimtrackfading">CanimTrack.fading<a class="headerlink" href="#canimtrackfading" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.fading: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.fading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Whether the track is fading out.</p>
 <hr />
 <h3 id="canimtrackfade_time">CanimTrack.fade_time<a class="headerlink" href="#canimtrackfade_time" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.fade_time: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.fade_time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Controls how quickly the track fades out after stopping.</p>
 <hr />
 <h3 id="canimtrackloaded">CanimTrack.loaded<a class="headerlink" href="#canimtrackloaded" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.loaded: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.loaded</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Whether the track is loaded.</p>
 <hr />
 <h3 id="canimtrackstopping">CanimTrack.stopping<a class="headerlink" href="#canimtrackstopping" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.stopping: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.stopping</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>If true, the track will stop playing at the next <code>Canim.update</code> call.</p>
 <hr />
 <h3 id="canimtrackplaying">CanimTrack.playing<a class="headerlink" href="#canimtrackplaying" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.playing: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.playing</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Whether the track is playing.</p>
 <hr />
 <h3 id="canimtrackspeed">CanimTrack.speed<a class="headerlink" href="#canimtrackspeed" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.speed: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.speed</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Speed of the track. deltatime from <code>Canim.update()</code> is multiplied by this function.</p>
 <hr />
 <h3 id="canimtracktime">CanimTrack.time<a class="headerlink" href="#canimtracktime" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.time: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>How long the animation has played for.</p>
 <hr />
 <h3 id="canimtracklength">CanimTrack.length<a class="headerlink" href="#canimtracklength" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.length: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.length</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>How long the track is, in seconds.</p>
 <hr />
 <h3 id="canimtracklooped">CanimTrack.looped<a class="headerlink" href="#canimtracklooped" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.looped: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.looped</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Controls whether the track will automatically restart once it reaches the end.</p>
 <hr />
 <h3 id="canimtrackqueued_animation">CanimTrack.queued_animation<a class="headerlink" href="#canimtrackqueued_animation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.queued_animation?: CanimTrack
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.queued_animation?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
 </code></pre></div>
 <p>Temporary property to make sure animations run seamlessly, one after the other.</p>
 <div class="admonition caution">
@@ -1093,29 +1093,29 @@ you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all
 </div>
 <hr />
 <h3 id="canimtrackrebase_target">CanimTrack.rebase_target<a class="headerlink" href="#canimtrackrebase_target" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.rebase_target?: CanimTrack
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.rebase_target?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
 </code></pre></div>
 <p>Rebase target for the animation.
 TODO: better documentation</p>
 <hr />
 <h3 id="canimtrackrebase_basis">CanimTrack.rebase_basis<a class="headerlink" href="#canimtrackrebase_basis" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.rebase_basis?: CanimTrack
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.rebase_basis?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
 </code></pre></div>
 <p>Rebase basis for the animation.
 TODO: better documentation</p>
 <hr />
 <h3 id="canimtracksequence_1">CanimTrack.sequence<a class="headerlink" href="#canimtracksequence_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.sequence?: customKeyframeSequence
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.sequence?</span><span class="o">:</span><span class="w"> </span><span class="kt">customKeyframeSequence</span><span class="w"></span>
 </code></pre></div>
 <p>Animation data used by the animator.</p>
 <hr />
 <h3 id="canimtracktransition_disable">CanimTrack.transition_disable<a class="headerlink" href="#canimtracktransition_disable" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.transition_disable: { [index: string]: boolean }
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">transition_disable</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>If a Motor6D name is included in this table, transitions will not play for it.</p>
 <hr />
 <h3 id="canimtracktransition_disable_all">CanimTrack.transition_disable_all<a class="headerlink" href="#canimtracktransition_disable_all" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.transition_disable_all: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.transition_disable_all</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Controls whether transitions are disabled for this track.</p>
 

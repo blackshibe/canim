@@ -661,7 +661,7 @@ complains about this but for the default animator there are only certain cases w
 <span class="w">    </span><span class="nx">animator</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">delta_time</span><span class="p">);</span><span class="w"></span>
 <span class="p">});</span><span class="w"></span>
 </code></pre></div></p>
-<p>You must assign a character to the animator you create:
+<p>You must assign a rig to the animator you create:
 <div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">game</span><span class="p">.</span><span class="nx">GetService</span><span class="p">(</span><span class="s2">&quot;Workspace&quot;</span><span class="p">).</span><span class="nx">WaitForChild</span><span class="p">(</span><span class="s2">&quot;dummy&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">Model</span><span class="p">;</span><span class="w"></span>
 <span class="kd">let</span><span class="w"> </span><span class="nx">animator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Canim</span><span class="p">();</span><span class="w"></span>
 <span class="nx">animator</span><span class="p">.</span><span class="nx">assign_model</span><span class="p">(</span><span class="nx">character</span><span class="p">);</span><span class="w"></span>

@@ -780,7 +780,7 @@
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimassign_model">Canim.assign_model<a class="headerlink" href="#canimassign_model" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.assign_model(model: Model): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">assign_model</span><span class="p">(</span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">Model</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Connects a model to the animator.</p>
 <div class="admonition info">
@@ -789,7 +789,7 @@
 </div>
 <hr />
 <h3 id="canimload_animation">Canim.load_animation<a class="headerlink" href="#canimload_animation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.load_animation(name: string, priority: number, id: string | KeyframeSequence): CanimTrack 
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">load_animation</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">priority</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">KeyframeSequence</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">CanimTrack</span><span class="w"> </span>
 </code></pre></div>
 <p>Registers and begins loading the given animation. It can then be played with <a href="/API/Canim/#canimload_animation">Canim.load_animation</a> using the name provided to load_animation. <br/></p>
 <div class="admonition caution">
@@ -798,7 +798,7 @@
 </div>
 <hr />
 <h3 id="canimload_pose">Canim.load_pose<a class="headerlink" href="#canimload_pose" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.load_pose(name: string, priority: number, id: string | KeyframeSequence): CanimPose
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">load_pose</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">priority</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">KeyframeSequence</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">CanimPose</span><span class="w"></span>
 </code></pre></div>
 <p>Registers and begins loading the given pose. It can then be played with <a href="/API/Canim/#canimplay_pose">Canim.play_pose</a> using the name provided to load_pose. <br/>
 This takes in an AnimationTrack of any given animation length. Only the first frame of it is used.</p>
@@ -808,12 +808,12 @@ This takes in an AnimationTrack of any given animation length. Only the first fr
 </div>
 <hr />
 <h3 id="canimplay_animation">Canim.play_animation<a class="headerlink" href="#canimplay_animation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.play_animation(id: string): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">play_animation</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Plays a track.</p>
 <hr />
 <h3 id="canimplay_pose">Canim.play_pose<a class="headerlink" href="#canimplay_pose" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.play_pose(id: string): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">play_pose</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Plays a pose.</p>
 <div class="admonition info">
@@ -822,12 +822,12 @@ This takes in an AnimationTrack of any given animation length. Only the first fr
 </div>
 <hr />
 <h3 id="canimstop_animation">Canim.stop_animation<a class="headerlink" href="#canimstop_animation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.stop_animation(name: string): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">stop_animation</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Stops playing any given pose or track.</p>
 <hr />
 <h3 id="canimupdate">Canim.update<a class="headerlink" href="#canimupdate" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.update(delta_time: number): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">delta_time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Steps the animation player forward by <code>delta_time</code>.</p>
 <div class="admonition caution">
@@ -836,28 +836,28 @@ This takes in an AnimationTrack of any given animation length. Only the first fr
 </div>
 <hr />
 <h3 id="canimdestroy">Canim.destroy<a class="headerlink" href="#canimdestroy" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.destroy(): void
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">destroy</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Cleans up the class and all animations.</p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimanimations">Canim.animations<a class="headerlink" href="#canimanimations" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.animations: { [index: string]: CanimTrack | CanimPose | undefined; } = {};
+<div class="highlight"><pre><span></span><code><span class="nx">Canim</span><span class="p">.</span><span class="nx">animations</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">CanimTrack</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">CanimPose</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </code></pre></div>
 <p>Array of loaded animations.</p>
 <hr />
 <h3 id="canimplaying_animations">Canim.playing_animations<a class="headerlink" href="#canimplaying_animations" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.playing_animations: CanimTrack[]
+<div class="highlight"><pre><span></span><code><span class="nx">Canim.playing_animations</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="p">[]</span><span class="w"></span>
 </code></pre></div>
 <p>Array of playing tracks.</p>
 <hr />
 <h3 id="canimplaying_poses">Canim.playing_poses<a class="headerlink" href="#canimplaying_poses" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.playing_poses: CanimPose[]
+<div class="highlight"><pre><span></span><code><span class="nx">Canim.playing_poses</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimPose</span><span class="p">[]</span><span class="w"></span>
 </code></pre></div>
 <p>Array of playing poses.</p>
 <hr />
 <h3 id="canimdebug">Canim.debug<a class="headerlink" href="#canimdebug" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Canim.debug: string[]
+<div class="highlight"><pre><span></span><code><span class="nx">Canim.debug</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[]</span><span class="w"></span>
 </code></pre></div>
 <p>Contains information about currently playing tracks and poses.</p>
 <hr />

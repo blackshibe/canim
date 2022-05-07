@@ -835,7 +835,7 @@
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimposeload_sequence">CanimPose.load_sequence<a class="headerlink" href="#canimposeload_sequence" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.load_sequence(id: string | KeyframeSequence): void
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose</span><span class="p">.</span><span class="nx">load_sequence</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">KeyframeSequence</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
 </code></pre></div>
 <p>Loads the AnimationTrack for the pose. Does not yield and fires finished_loading when it's finished.</p>
 <div class="admonition caution">
@@ -845,34 +845,34 @@
 <h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimposekeyframe_reached">CanimPose.keyframe_reached<a class="headerlink" href="#canimposekeyframe_reached" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.keyframe_reached: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.keyframe_reached</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when a named keyframe is stepped over by the animator.</p>
 <hr />
 <h3 id="canimposefinished_loading">CanimPose.finished_loading<a class="headerlink" href="#canimposefinished_loading" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.finished_loading: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.finished_loading</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation finishes loading.</p>
 <hr />
 <h3 id="canimposestarted">CanimPose.started<a class="headerlink" href="#canimposestarted" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.started: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.started</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation starts.</p>
 <hr />
 <h3 id="canimposefinished">CanimPose.finished<a class="headerlink" href="#canimposefinished" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.finished: Signal
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.finished</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
 </code></pre></div>
 <p>Fires when the animation ends.</p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="canimposekeyframe">CanimPose.keyframe<a class="headerlink" href="#canimposekeyframe" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.keyframe?: customKeyframe
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.keyframe?</span><span class="o">:</span><span class="w"> </span><span class="kt">customKeyframe</span><span class="w"></span>
 </code></pre></div>
 <p>Contains animation data that Canim interprets. You can edit this to change the animation data.
 nil if the animation is unloaded.</p>
 <hr />
 <h3 id="canimposebone_weights">CanimPose.bone_weights<a class="headerlink" href="#canimposebone_weights" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.bone_weights: { [index: string]: number | undefined } = {};
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose</span><span class="p">.</span><span class="nx">bone_weights</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 </code></pre></div>
 <p>Controls how much individual axis of individual Motor6D Transforms are affected by this animation. <br/>
 you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all bones:
@@ -889,37 +889,37 @@ you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all
 </div>
 <hr />
 <h3 id="canimposename">CanimPose.name<a class="headerlink" href="#canimposename" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.name: string
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
 </code></pre></div>
 <p>Name of the pose.</p>
 <hr />
 <h3 id="canimposepriority">CanimPose.priority<a class="headerlink" href="#canimposepriority" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.priority: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.priority</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Priority of the pose.</p>
 <hr />
 <h3 id="canimposefading">CanimPose.fading<a class="headerlink" href="#canimposefading" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.fading: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.fading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Whether the pose is fading out.</p>
 <hr />
 <h3 id="canimposefade_time">CanimPose.fade_time<a class="headerlink" href="#canimposefade_time" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.fade_time: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.fade_time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>Controls how quickly the pose fades out after stopping.</p>
 <hr />
 <h3 id="canimtrackloaded">CanimTrack.loaded<a class="headerlink" href="#canimtrackloaded" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimTrack.loaded: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.loaded</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>Whether the track is loaded.</p>
 <hr />
 <h3 id="canimposestopping">CanimPose.stopping<a class="headerlink" href="#canimposestopping" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.stopping: boolean
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.stopping</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
 </code></pre></div>
 <p>If true, the Pose will stop playing at the next <code>Canim.update</code> call.</p>
 <hr />
 <h3 id="canimposetime">CanimPose.time<a class="headerlink" href="#canimposetime" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>CanimPose.time: number
+<div class="highlight"><pre><span></span><code><span class="nx">CanimPose.time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
 </code></pre></div>
 <p>How long the animation has played for.</p>
 
