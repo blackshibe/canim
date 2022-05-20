@@ -1,0 +1,1225 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>CanimTrack - Canim Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#canimtrack" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Canim Documentation" class="md-header__button md-logo" aria-label="Canim Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Canim Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CanimTrack
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/blackshibe/canim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Canim Documentation" class="md-nav__button md-logo" aria-label="Canim Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Canim Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/blackshibe/canim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Canim/" class="md-nav__link">
+        Canim
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CanimEasing/" class="md-nav__link">
+        CanimEasing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CanimPose/" class="md-nav__link">
+        CanimPose
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          CanimTrack
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        CanimTrack
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackload_sequence" class="md-nav__link">
+    CanimTrack.load_sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackkeyframe_reached" class="md-nav__link">
+    CanimTrack.keyframe_reached
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfinished_loading" class="md-nav__link">
+    CanimTrack.finished_loading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackstarted" class="md-nav__link">
+    CanimTrack.started
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfinished" class="md-nav__link">
+    CanimTrack.finished
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtracksequence" class="md-nav__link">
+    CanimTrack.sequence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackbone_weights" class="md-nav__link">
+    CanimTrack.bone_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackname" class="md-nav__link">
+    CanimTrack.name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackpriority" class="md-nav__link">
+    CanimTrack.priority
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfading" class="md-nav__link">
+    CanimTrack.fading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfade_time" class="md-nav__link">
+    CanimTrack.fade_time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackloaded" class="md-nav__link">
+    CanimTrack.loaded
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackstopping" class="md-nav__link">
+    CanimTrack.stopping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackplaying" class="md-nav__link">
+    CanimTrack.playing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackspeed" class="md-nav__link">
+    CanimTrack.speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktime" class="md-nav__link">
+    CanimTrack.time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracklength" class="md-nav__link">
+    CanimTrack.length
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracklooped" class="md-nav__link">
+    CanimTrack.looped
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackqueued_animation" class="md-nav__link">
+    CanimTrack.queued_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackrebase_target" class="md-nav__link">
+    CanimTrack.rebase_target
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackrebase_basis" class="md-nav__link">
+    CanimTrack.rebase_basis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracksequence_1" class="md-nav__link">
+    CanimTrack.sequence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktransition_disable" class="md-nav__link">
+    CanimTrack.transition_disable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktransition_disable_all" class="md-nav__link">
+    CanimTrack.transition_disable_all
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Other/" class="md-nav__link">
+        Other
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Luau/" class="md-nav__link">
+        Luau
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Typescript/" class="md-nav__link">
+        Typescript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/1-getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/2-preloading/" class="md-nav__link">
+        Preloading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/3-fading/" class="md-nav__link">
+        Fading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/4-editing-animation-data/" class="md-nav__link">
+        Editing Animation Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/5-rebasing/" class="md-nav__link">
+        Rebasing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/6-overlapping-animations/" class="md-nav__link">
+        Overlapping animations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/7-bone-weights/" class="md-nav__link">
+        Bone Weights
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/8-debug/" class="md-nav__link">
+        Debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage/9-easing/" class="md-nav__link">
+        Easing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackload_sequence" class="md-nav__link">
+    CanimTrack.load_sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav" aria-label="Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackkeyframe_reached" class="md-nav__link">
+    CanimTrack.keyframe_reached
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfinished_loading" class="md-nav__link">
+    CanimTrack.finished_loading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackstarted" class="md-nav__link">
+    CanimTrack.started
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfinished" class="md-nav__link">
+    CanimTrack.finished
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav" aria-label="Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canimtracksequence" class="md-nav__link">
+    CanimTrack.sequence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackbone_weights" class="md-nav__link">
+    CanimTrack.bone_weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackname" class="md-nav__link">
+    CanimTrack.name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackpriority" class="md-nav__link">
+    CanimTrack.priority
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfading" class="md-nav__link">
+    CanimTrack.fading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackfade_time" class="md-nav__link">
+    CanimTrack.fade_time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackloaded" class="md-nav__link">
+    CanimTrack.loaded
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackstopping" class="md-nav__link">
+    CanimTrack.stopping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackplaying" class="md-nav__link">
+    CanimTrack.playing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackspeed" class="md-nav__link">
+    CanimTrack.speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktime" class="md-nav__link">
+    CanimTrack.time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracklength" class="md-nav__link">
+    CanimTrack.length
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracklooped" class="md-nav__link">
+    CanimTrack.looped
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackqueued_animation" class="md-nav__link">
+    CanimTrack.queued_animation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackrebase_target" class="md-nav__link">
+    CanimTrack.rebase_target
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtrackrebase_basis" class="md-nav__link">
+    CanimTrack.rebase_basis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracksequence_1" class="md-nav__link">
+    CanimTrack.sequence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktransition_disable" class="md-nav__link">
+    CanimTrack.transition_disable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canimtracktransition_disable_all" class="md-nav__link">
+    CanimTrack.transition_disable_all
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/blackshibe/canim/edit/master/docs/API/CanimTrack.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="canimtrack">CanimTrack<a class="headerlink" href="#canimtrack" title="Permanent link">&para;</a></h1>
+<p>The class used for tracks in the library. It shares many similiarities with CanimTrack, however canim avoids inheritance.</p>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="canimtrackload_sequence">CanimTrack.load_sequence<a class="headerlink" href="#canimtrackload_sequence" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">load_sequence</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">KeyframeSequence</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"></span>
+</code></pre></div>
+<p>Loads the AnimationTrack for the track. Does not yield and fires finished_loading when it's finished.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Canim calls this automatically. There is no reason to do it yourself.</p>
+</div>
+<h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="canimtrackkeyframe_reached">CanimTrack.keyframe_reached<a class="headerlink" href="#canimtrackkeyframe_reached" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.keyframe_reached</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
+</code></pre></div>
+<p>Fires when a named keyframe is stepped over by the animator.</p>
+<hr />
+<h3 id="canimtrackfinished_loading">CanimTrack.finished_loading<a class="headerlink" href="#canimtrackfinished_loading" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.finished_loading</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
+</code></pre></div>
+<p>Fires when the animation finishes loading.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This overwrites the looped property of the pose, so set it after the track finishes loading if you are overwriting it.</p>
+</div>
+<hr />
+<h3 id="canimtrackstarted">CanimTrack.started<a class="headerlink" href="#canimtrackstarted" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.started</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
+</code></pre></div>
+<p>Fires when the animation starts.</p>
+<hr />
+<h3 id="canimtrackfinished">CanimTrack.finished<a class="headerlink" href="#canimtrackfinished" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.finished</span><span class="o">:</span><span class="w"> </span><span class="kt">Signal</span><span class="w"></span>
+</code></pre></div>
+<p>Fires when the animation ends.</p>
+<h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="canimtracksequence">CanimTrack.sequence<a class="headerlink" href="#canimtracksequence" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.sequence?</span><span class="o">:</span><span class="w"> </span><span class="kt">customKeyframe</span><span class="w"></span>
+</code></pre></div>
+<p>Contains animation data that Canim interprets. You can edit this to change the animation data.
+nil if the animation is unloaded.</p>
+<hr />
+<h3 id="canimtrackbone_weights">CanimTrack.bone_weights<a class="headerlink" href="#canimtrackbone_weights" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">bone_weights</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+</code></pre></div>
+<p>Controls how much individual axis of individual Motor6D Transforms are affected by this animation. <br/>
+you can use <code>__CANIM_DEFAULT_BONE_WEIGHT</code> for the index to affect all bones:
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nx">animation</span><span class="p">.</span><span class="nx">bone_weights</span><span class="p">.</span><span class="nx">__CANIM_DEFAULT_BONE_WEIGHT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// x y z</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// rx ry rz</span><span class="w"></span>
+<span class="w">        </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">];</span><span class="w"></span>
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this property is additionally multiplied by CanimTrack.weight.</p>
+</div>
+<hr />
+<h3 id="canimtrackname">CanimTrack.name<a class="headerlink" href="#canimtrackname" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+</code></pre></div>
+<p>Name of the track.</p>
+<hr />
+<h3 id="canimtrackpriority">CanimTrack.priority<a class="headerlink" href="#canimtrackpriority" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.priority</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>Priority of the track.</p>
+<hr />
+<h3 id="canimtrackfading">CanimTrack.fading<a class="headerlink" href="#canimtrackfading" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.fading</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
+</code></pre></div>
+<p>Whether the track is fading out.</p>
+<hr />
+<h3 id="canimtrackfade_time">CanimTrack.fade_time<a class="headerlink" href="#canimtrackfade_time" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.fade_time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>Controls how quickly the track fades out after stopping.</p>
+<hr />
+<h3 id="canimtrackloaded">CanimTrack.loaded<a class="headerlink" href="#canimtrackloaded" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.loaded</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
+</code></pre></div>
+<p>Whether the track is loaded.</p>
+<hr />
+<h3 id="canimtrackstopping">CanimTrack.stopping<a class="headerlink" href="#canimtrackstopping" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.stopping</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
+</code></pre></div>
+<p>If true, the track will stop playing at the next <code>Canim.update</code> call.</p>
+<hr />
+<h3 id="canimtrackplaying">CanimTrack.playing<a class="headerlink" href="#canimtrackplaying" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.playing</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
+</code></pre></div>
+<p>Whether the track is playing.</p>
+<hr />
+<h3 id="canimtrackspeed">CanimTrack.speed<a class="headerlink" href="#canimtrackspeed" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.speed</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>Speed of the track. deltatime from <code>Canim.update()</code> is multiplied by this function.</p>
+<hr />
+<h3 id="canimtracktime">CanimTrack.time<a class="headerlink" href="#canimtracktime" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.time</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>How long the animation has played for.</p>
+<hr />
+<h3 id="canimtracklength">CanimTrack.length<a class="headerlink" href="#canimtracklength" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.length</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>How long the track is, in seconds.</p>
+<hr />
+<h3 id="canimtracklooped">CanimTrack.looped<a class="headerlink" href="#canimtracklooped" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.looped</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="w"></span>
+</code></pre></div>
+<p>Controls whether the track will automatically restart once it reaches the end.</p>
+<hr />
+<h3 id="canimtrackqueued_animation">CanimTrack.queued_animation<a class="headerlink" href="#canimtrackqueued_animation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.queued_animation?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
+</code></pre></div>
+<p>Temporary property to make sure animations run seamlessly, one after the other.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Only use this if you must.</p>
+</div>
+<hr />
+<h3 id="canimtrackrebase_target">CanimTrack.rebase_target<a class="headerlink" href="#canimtrackrebase_target" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.rebase_target?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
+</code></pre></div>
+<p>Rebase target for the animation.
+TODO: better documentation</p>
+<hr />
+<h3 id="canimtrackrebase_basis">CanimTrack.rebase_basis<a class="headerlink" href="#canimtrackrebase_basis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.rebase_basis?</span><span class="o">:</span><span class="w"> </span><span class="kt">CanimTrack</span><span class="w"></span>
+</code></pre></div>
+<p>Rebase basis for the animation.
+TODO: better documentation</p>
+<hr />
+<h3 id="canimtracksequence_1">CanimTrack.sequence<a class="headerlink" href="#canimtracksequence_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.sequence?</span><span class="o">:</span><span class="w"> </span><span class="kt">customKeyframeSequence</span><span class="w"></span>
+</code></pre></div>
+<p>Animation data used by the animator.</p>
+<hr />
+<h3 id="canimtracktransition_disable">CanimTrack.transition_disable<a class="headerlink" href="#canimtracktransition_disable" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack</span><span class="p">.</span><span class="nx">transition_disable</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>If a Motor6D name is included in this table, transitions will not play for it.</p>
+<hr />
+<h3 id="canimtracktransition_disable_all">CanimTrack.transition_disable_all<a class="headerlink" href="#canimtracktransition_disable_all" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nx">CanimTrack.transition_disable_all</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"></span>
+</code></pre></div>
+<p>Controls whether transitions are disabled for this track.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../CanimPose/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CanimPose" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              CanimPose
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Other/" class="md-footer__link md-footer__link--next" aria-label="Next: Other" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Other
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+    
+  </body>
+</html>
