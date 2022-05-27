@@ -393,11 +393,11 @@ export class Canim {
 					}
 				} else {
 					track.stopping = false;
+					track.playing = false;
+					track.finished.Fire();
 
 					// transition to idle once the animation is ready for it
 					if (track.last_keyframe) {
-						track.finished.Fire();
-
 						if (track.queued_animation) this.play_animation(track.queued_animation.name);
 						else if (!track.rebase_target) {
 							for (const [_, value] of pairs(track.last_keyframe.children)) {
