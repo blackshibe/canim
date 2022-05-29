@@ -194,6 +194,7 @@ export class CanimTrack {
 
 	signals: signalInfo[] = [];
 	bone_weights: { [index: string]: [[number, number, number], [number, number, number]] | undefined } = {};
+	disable_rebasing: { [index: string]: boolean | undefined } = {};
 
 	name = "animation_track";
 
@@ -435,7 +436,11 @@ export class Canim {
 				else if (keyframe.time <= track.time) first = keyframe;
 			}
 
-			if (!first || !last) return warn(`Invalid KeyframeSequence; no start or stop point for ${track.name}`);
+			if (!first || !last) {
+				debug.push(`Invalid KeyframeSequence given track time of ${track.time} of ${track.name}`);
+				continue;
+			}
+
 			for (const [_, element] of pairs(track.signals)) {
 				if (track.time >= element.time && !element.played) {
 					element.played = true;
@@ -462,6 +467,7 @@ export class Canim {
 
 					let blended_cframe = unblended_cframe;
 					let components = blended_cframe.ToEulerAnglesXYZ();
+					let part1_name = bone.Part1!.Name;
 
 					blended_cframe = new CFrame(
 						unblended_cframe.X * weight[0][0] * track.weight,
@@ -478,20 +484,21 @@ export class Canim {
 					);
 
 					if (
+						!track.disable_rebasing[part1_name] &&
 						track.rebase_target &&
 						track.rebase_target.keyframe &&
-						track.rebase_target.keyframe.children[bone.Part1!.Name]
+						track.rebase_target.keyframe.children[part1_name]
 					) {
 						if (
 							track.rebase_basis &&
 							track.rebase_basis.keyframe &&
-							track.rebase_basis.keyframe.children[bone.Part1!.Name]
+							track.rebase_basis.keyframe.children[part1_name]
 						) {
-							let basis = track.rebase_basis.keyframe.children[bone.Part1!.Name].cframe;
+							let basis = track.rebase_basis.keyframe.children[part1_name].cframe;
 							blended_cframe = blended_cframe.mul(basis.Inverse());
 						} else {
 							blended_cframe = blended_cframe.mul(
-								track.rebase_target.keyframe!.children[bone.Part1!.Name].cframe.Inverse()
+								track.rebase_target.keyframe!.children[part1_name].cframe.Inverse()
 							);
 						}
 
