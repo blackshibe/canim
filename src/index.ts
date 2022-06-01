@@ -454,7 +454,7 @@ export class Canim {
 			const bias = map(track.time, first.time, last.time, 0, 1);
 			for (const [_, value] of pairs(first.children)) {
 				const bone = this.identified_bones[value.name];
-				if (bone) {
+				if (bone && bone.Part1) {
 					const a = value;
 					const b = last.children[value.name];
 					const unblended_cframe = a.cframe.Lerp(b.cframe, bias);
@@ -466,22 +466,7 @@ export class Canim {
 						];
 
 					let blended_cframe = unblended_cframe;
-					let components = blended_cframe.ToEulerAnglesXYZ();
-					let part1_name = bone.Part1!.Name;
-
-					blended_cframe = new CFrame(
-						unblended_cframe.X * weight[0][0] * track.weight,
-						unblended_cframe.Y * weight[0][1] * track.weight,
-						unblended_cframe.Z * weight[0][2] * track.weight
-					);
-
-					blended_cframe = blended_cframe.mul(
-						CFrame.Angles(
-							components[0] * weight[1][0] * track.weight,
-							components[1] * weight[1][1] * track.weight,
-							components[2] * weight[1][2] * track.weight
-						)
-					);
+					let part1_name = bone.Part1.Name;
 
 					if (
 						!track.disable_rebasing[part1_name] &&
@@ -502,10 +487,41 @@ export class Canim {
 							);
 						}
 
+						let components = blended_cframe.ToEulerAnglesXYZ();
+						blended_cframe = new CFrame(
+							blended_cframe.X * weight[0][0] * track.weight,
+							blended_cframe.Y * weight[0][1] * track.weight,
+							blended_cframe.Z * weight[0][2] * track.weight
+						);
+
+						blended_cframe = blended_cframe.mul(
+							CFrame.Angles(
+								components[0] * weight[1][0] * track.weight,
+								components[1] * weight[1][1] * track.weight,
+								components[2] * weight[1][2] * track.weight
+							)
+						);
+
 						let sum: [number, CFrame][] = weight_sum_rebased.get(bone) || [];
 						sum.push([track.priority, blended_cframe]);
 						weight_sum_rebased.set(bone, sum);
 					} else {
+						let components = blended_cframe.ToEulerAnglesXYZ();
+
+						blended_cframe = new CFrame(
+							unblended_cframe.X * weight[0][0] * track.weight,
+							unblended_cframe.Y * weight[0][1] * track.weight,
+							unblended_cframe.Z * weight[0][2] * track.weight
+						);
+
+						blended_cframe = blended_cframe.mul(
+							CFrame.Angles(
+								components[0] * weight[1][0] * track.weight,
+								components[1] * weight[1][1] * track.weight,
+								components[2] * weight[1][2] * track.weight
+							)
+						);
+
 						let sum = weight_sum.get(bone) || [];
 						sum.push([track.priority, blended_cframe]);
 						weight_sum.set(bone, sum);
