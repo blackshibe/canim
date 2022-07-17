@@ -368,9 +368,10 @@ export class Canim {
 		const weight_sum_rebased = new Map<Motor6D, [number, CFrame][]>();
 		const bone_totals = new Map<Motor6D, CFrame>();
 
-		const new_playing: CanimTrack[] = [];
+		const new_playing_animations: CanimTrack[] = [];
 		const debug: string[] = [];
 
+		// manage the state of currently playing animations before displaying the result
 		// if this was done inside the first loop the rig would flicker randomly
 		// manages the playback of the animations before they are finally rendered
 		for (const [_, track] of pairs(this.playing_animations)) {
@@ -419,10 +420,10 @@ export class Canim {
 				}
 			}
 
-			new_playing.push(track);
+			new_playing_animations.push(track);
 		}
 
-		for (const [_, track] of pairs(new_playing)) {
+		for (const [_, track] of pairs(new_playing_animations)) {
 			if (!track.loaded || !track.sequence) continue;
 			if (track.time >= track.length && track.looped) track.time -= track.length;
 
@@ -442,7 +443,7 @@ export class Canim {
 			}
 
 			if (!first || !last) {
-				debug.push(`Invalid KeyframeSequence given track time of ${track.time} of ${track.name}`);
+				debug.push(`Invalid KeyframeSequence for track named ${track.name}, time: ${track.time}`);
 				continue;
 			}
 
@@ -540,7 +541,10 @@ export class Canim {
 			if (!track.loaded || !track.keyframe) continue;
 
 			const first: customKeyframe | undefined = track.keyframe;
-			if (!first) throw "invalid Keyframe (none)";
+			if (!first) {
+				debug.push(`Invalid KeyframeSequence for pose named ${track.name}, time: ${track.time}`);
+				continue;
+			}
 
 			for (const [_, value] of pairs(first.children)) {
 				const bone = this.identified_bones[value.name];
@@ -588,6 +592,7 @@ export class Canim {
 			}
 		}
 
+		// rebased transitions are probably disabled again?
 		for (const [index, value] of weight_sum_rebased) {
 			if (!index.Part1) continue;
 			for (const [_, data] of pairs(value)) {
@@ -612,7 +617,7 @@ export class Canim {
 			index.Transform = value;
 		}
 
-		this.playing_animations = new_playing;
+		this.playing_animations = new_playing_animations;
 		this.debug = debug;
 	}
 }
