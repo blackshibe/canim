@@ -423,9 +423,14 @@ export class Canim {
 		}
 
 		for (const [_, track] of pairs(new_playing)) {
-			debug.push(`Track ${track.name} ${track.looped} ${track.time}`);
 			if (!track.loaded || !track.sequence) continue;
-			if (track.time >= track.length && track.looped) track.time %= track.length;
+			if (track.time >= track.length && track.looped) track.time -= track.length;
+
+			debug.push(
+				`Track ${string.format("%.2f", track.time)} ${string.format("%.2f", track.weight)} ${track.name} ${
+					track.looped
+				}`
+			);
 
 			track.playing = true;
 
