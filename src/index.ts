@@ -99,8 +99,18 @@ export const cache_get_keyframe_sequence = (id: string): KeyframeSequence => {
 const map = (value: number, in_min: number, in_max: number, out_min: number, out_max: number) =>
 	((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
 
-// conversion functions that go from Roblox format to canim
+// gets rid of the RuntimeLib
+type partialMetatable = { __tostring: "CanimPose" | "CanimTrack" };
 
+const is_track = (obj: CanimTrack | CanimPose): obj is CanimTrack => {
+	return (getmetatable(obj) as unknown as partialMetatable).__tostring === "CanimTrack";
+};
+
+const is_pose = (obj: CanimTrack | CanimPose): obj is CanimPose => {
+	return (getmetatable(obj) as unknown as partialMetatable).__tostring === "CanimPose";
+};
+
+// conversion functions that go from Roblox format to canim
 const convert_pose_instance = (pose: Pose): customPose => {
 	return {
 		cframe: pose.CFrame,
@@ -186,7 +196,6 @@ export class CanimTrack {
 	queued_animation?: CanimTrack;
 
 	transition_disable: { [index: string]: boolean } = {};
-	transitions: { [index: string]: transition } = {};
 	keyframe_reached = new Signal<(name: string) => void>();
 	finished_loading = new Signal<() => void>();
 	finished = new Signal<() => void>();
@@ -263,15 +272,18 @@ export class Canim {
 		[index: string]: CanimTrack | CanimPose | undefined;
 	} = {};
 
-	transitions: {
-		[index: string]:
-			| Array<{
-					start: number;
-					finish: number;
-					cframe: CFrame;
-			  }>
-			| undefined;
-	} = {};
+	transitions: Map<Motor6D, [number, transition][]> = new Map();
+	transitions_rebased: Map<Motor6D, [number, transition][]> = new Map();
+
+	// transitions: {
+	// 	[index: string]:
+	// 		| Array<{
+	// 				start: number;
+	// 				finish: number;
+	// 				cframe: CFrame;
+	// 		  }>
+	// 		| undefined;
+	// } = {};
 
 	model?: Instance;
 	maid = new Maid();
@@ -327,7 +339,7 @@ export class Canim {
 	play_animation(id: string) {
 		const track = this.animations[id];
 		if (!track) return warn("invalid animation: ", id);
-		if (track instanceof CanimPose) throw "attempted to play a pose as an playedanimation";
+		if (is_pose(track)) throw "attempted to play a pose as an animation";
 
 		track.time = 0;
 		track.signals.forEach((element) => {
@@ -345,8 +357,8 @@ export class Canim {
 	play_pose(id: string) {
 		const track = this.animations[id];
 		if (!track) return warn("invalid animation: ", id);
+		if (is_track(track)) throw "attempted to play an animation as a pose";
 
-		if (track instanceof CanimTrack) throw "attempted to play a pose as an animation";
 		if (!this.playing_poses.includes(track)) {
 			this.playing_poses.push(track);
 		}
@@ -369,6 +381,8 @@ export class Canim {
 		const bone_totals = new Map<Motor6D, CFrame>();
 
 		const new_playing_animations: CanimTrack[] = [];
+		const transitioning_animations: CanimTrack[] = [];
+
 		const debug: string[] = [];
 
 		// manage the state of currently playing animations before displaying the result
@@ -400,21 +414,7 @@ export class Canim {
 
 					// transition to idle once the animation is ready for it
 					if (track.last_keyframe) {
-						if (track.queued_animation) this.play_animation(track.queued_animation.name);
-						else if (!track.rebase_target) {
-							for (const [_, value] of pairs(track.last_keyframe.children)) {
-								this.transitions[value.name] ??= [];
-								if (!track.transition_disable[value.name] && !track.transition_disable_all) {
-									let cframe = value.cframe;
-									this.transitions[value.name]!.push({
-										start: tick(),
-										finish: tick() + track.fade_time,
-										cframe: cframe,
-									});
-								}
-							}
-						}
-
+						transitioning_animations.push(track);
 						continue;
 					}
 				}
@@ -536,6 +536,116 @@ export class Canim {
 			}
 		}
 
+		// generates exit cframes for transitions
+		// TODO: currently a direct duplication of the code above.
+		for (const [_, track] of pairs(transitioning_animations)) {
+			if (!track.sequence) continue;
+
+			let last: customKeyframe | undefined = undefined;
+			for (const [_, keyframe] of pairs(track.sequence.children)) {
+				if (!last) last = keyframe;
+				else if (last.time < keyframe.time) last = keyframe;
+			}
+
+			if (!last) {
+				debug.push(
+					`Invalid KeyframeSequence for track transition named ${track.name}, most likely completely empty`
+				);
+				continue;
+			}
+
+			track.last_keyframe = last;
+			for (const [_, value] of pairs(last.children)) {
+				const bone = this.identified_bones[value.name];
+				if (bone && bone.Part1) {
+					const a = value;
+					const unblended_cframe = a.cframe;
+
+					let weight = track.bone_weights[value.name] ||
+						track.bone_weights["__CANIM_DEFAULT_BONE_WEIGHT"] || [
+							[1, 1, 1],
+							[1, 1, 1],
+						];
+
+					let blended_cframe = unblended_cframe;
+					let part1_name = bone.Part1.Name;
+
+					if (
+						!track.disable_rebasing[part1_name] &&
+						track.rebase_target &&
+						track.rebase_target.keyframe &&
+						track.rebase_target.keyframe.children[part1_name]
+					) {
+						if (
+							track.rebase_basis &&
+							track.rebase_basis.keyframe &&
+							track.rebase_basis.keyframe.children[part1_name]
+						) {
+							let basis = track.rebase_basis.keyframe.children[part1_name].cframe;
+							blended_cframe = blended_cframe.mul(basis.Inverse());
+						} else {
+							blended_cframe = blended_cframe.mul(
+								track.rebase_target.keyframe!.children[part1_name].cframe.Inverse()
+							);
+						}
+
+						let components = blended_cframe.ToEulerAnglesXYZ();
+						blended_cframe = new CFrame(
+							blended_cframe.X * weight[0][0] * track.weight,
+							blended_cframe.Y * weight[0][1] * track.weight,
+							blended_cframe.Z * weight[0][2] * track.weight
+						);
+
+						blended_cframe = blended_cframe.mul(
+							CFrame.Angles(
+								components[0] * weight[1][0] * track.weight,
+								components[1] * weight[1][1] * track.weight,
+								components[2] * weight[1][2] * track.weight
+							)
+						);
+
+						let sum = this.transitions_rebased.get(bone) || [];
+						sum.push([
+							track.priority,
+							{
+								start: tick(),
+								finish: tick() + track.fade_time,
+								cframe: blended_cframe,
+							},
+						]);
+						this.transitions_rebased.set(bone, sum);
+					} else {
+						let components = blended_cframe.ToEulerAnglesXYZ();
+
+						blended_cframe = new CFrame(
+							unblended_cframe.X * weight[0][0] * track.weight,
+							unblended_cframe.Y * weight[0][1] * track.weight,
+							unblended_cframe.Z * weight[0][2] * track.weight
+						);
+
+						blended_cframe = blended_cframe.mul(
+							CFrame.Angles(
+								components[0] * weight[1][0] * track.weight,
+								components[1] * weight[1][1] * track.weight,
+								components[2] * weight[1][2] * track.weight
+							)
+						);
+
+						let sum = this.transitions.get(bone) || [];
+						sum.push([
+							track.priority,
+							{
+								start: tick(),
+								finish: tick() + track.fade_time,
+								cframe: blended_cframe,
+							},
+						]);
+						this.transitions.set(bone, sum);
+					}
+				}
+			}
+		}
+
 		for (const [_, track] of pairs(this.playing_poses)) {
 			debug.push(`Pose ${track.name} ${track.time}`);
 			if (!track.loaded || !track.keyframe) continue;
@@ -556,60 +666,78 @@ export class Canim {
 			}
 		}
 
+		// this is required for transitions to work as otherwise the transitions aren't processed below
 		for (const [index, value] of pairs(this.identified_bones)) {
 			let sum = weight_sum.get(value) || [];
-			sum.push([-1000, new CFrame()]);
+			sum.push([-math.huge, new CFrame()]);
 			weight_sum.set(value, sum);
+
+			let rebased_sum = weight_sum_rebased.get(value) || [];
+			rebased_sum.push([-math.huge, new CFrame()]);
+			weight_sum_rebased.set(value, rebased_sum);
 		}
 
-		for (const [index, value] of weight_sum) {
-			table.sort(value, (a, b) => {
+		// regular animations display the lowest priority animation without any layering, so you simply sort what's playing and use the first result
+		for (const [motor, animation_cframes] of weight_sum) {
+			if (!motor.Part1) continue;
+			table.sort(animation_cframes, (a, b) => {
 				return a[0] > b[0];
 			});
 
-			// transitions only work inbetween the last animation to play and any poses.
-			if (index.Part1) {
-				let target_cframe = value[0][1];
-				let transitions = this.transitions[index.Part1.Name];
+			let target_cframe = animation_cframes[0][1];
+			let transitions = this.transitions.get(motor);
 
-				if (transitions) {
-					for (const [transition_index, transition] of pairs(transitions)) {
-						if (transition.finish === 0) {
-							transition.finish = tick() + math.huge;
-							delete transitions[transition_index - 1];
-						}
+			if (transitions) {
+				for (const [transition_index, [id, transition]] of pairs(transitions)) {
+					if (transition.finish === 0) {
+						transition.finish = tick() + math.huge;
+						delete transitions[transition_index - 1];
+					}
 
-						if (transition.finish >= tick() && weight_sum.get(index)!.size() <= 2) {
-							let alpha = this.fadeout_easing(map(tick(), transition.start, transition.finish, 1, 0));
-							target_cframe = target_cframe.Lerp(transition.cframe, alpha);
-						} else if (transition.finish <= tick()) {
-							delete transitions[transition_index - 1];
-						}
+					if (transition.finish >= tick() && weight_sum.get(motor)!.size() <= 2) {
+						let alpha = this.fadeout_easing(map(tick(), transition.start, transition.finish, 1, 0));
+						target_cframe = target_cframe.Lerp(transition.cframe, alpha);
+					} else if (transition.finish <= tick()) {
+						delete transitions[transition_index - 1];
 					}
 				}
-
-				bone_totals.set(index, target_cframe); // (bone_totals.get(index) || new CFrame()).mul(target_cframe));
 			}
+
+			bone_totals.set(motor, target_cframe);
 		}
 
-		// rebased transitions are probably disabled again?
-		for (const [index, value] of weight_sum_rebased) {
-			if (!index.Part1) continue;
-			for (const [_, data] of pairs(value)) {
-				let target_cframe = data[1];
-				// let transitions = this.transitions[index.Part1.Name];
-				// if (transitions) {
-				// 	for (const [transition_index, transition] of pairs(transitions)) {
-				// 		if (transition && transition.finish >= tick() && weight_sum.get(index)!.size() === 1) {
-				// 			let alpha = this.fadeout_easing(map(tick(), transition.start, transition.finish, 1, 0));
-				// 			target_cframe = target_cframe.Lerp(transition.cframe, alpha);
-				// 		} else {
-				// 			delete transitions[transition_index];
-				// 		}
-				// 	}
-				// }
+		// rebased animations can be layered so they have to iterate
+		for (const [motor, animation_cframes] of weight_sum_rebased) {
+			if (!motor.Part1) continue;
+			let target_cframe = new CFrame();
 
-				bone_totals.set(index, target_cframe.mul(bone_totals.get(index) || new CFrame()));
+			for (const [_, [id, cframe]] of pairs(animation_cframes)) {
+				let iteration_target_cframe = cframe;
+				target_cframe = target_cframe.mul(iteration_target_cframe);
+			}
+
+			let transitions = this.transitions_rebased.get(motor);
+			if (transitions) {
+				for (const [transition_index, [id, transition]] of pairs(transitions)) {
+					if (transition.finish === 0) {
+						transition.finish = tick() + math.huge;
+						delete transitions[transition_index - 1];
+					}
+
+					if (transition.finish >= tick()) {
+						let alpha = this.fadeout_easing(map(tick(), transition.start, transition.finish, 1, 0));
+						target_cframe = target_cframe.mul(new CFrame().Lerp(transition.cframe, alpha));
+					} else if (transition.finish <= tick()) {
+						delete transitions[transition_index - 1];
+					}
+				}
+			}
+
+			let existing_cf = bone_totals.get(motor);
+			if (existing_cf) {
+				bone_totals.set(motor, target_cframe.mul(existing_cf));
+			} else {
+				bone_totals.set(motor, target_cframe);
 			}
 		}
 
