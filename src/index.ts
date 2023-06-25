@@ -207,6 +207,8 @@ export class CanimTrack {
 	name = "animation_track";
 
 	stopping = false;
+	init_transitions = false;
+
 	loaded = false;
 	priority = 0;
 	weight = 1;
@@ -266,6 +268,9 @@ export class Canim {
 	identified_bones: { [index: string]: Motor6D | undefined } = {};
 	playing_animations: Map<string, CanimTrack> = new Map();
 	playing_poses: Map<string, CanimPose> = new Map();
+
+	new_animations: Map<string, CanimTrack> = new Map();
+	queue_to_new_animations = false;
 
 	animations: {
 		[index: string]: CanimTrack | CanimPose | undefined;
@@ -346,7 +351,8 @@ export class Canim {
 			element.played = false;
 		});
 
-		this.playing_animations.set(track.name, track);
+		if (this.queue_to_new_animations) this.new_animations.set(track.name, track);
+		else this.playing_animations.set(track.name, track);
 
 		return track;
 	}
@@ -364,121 +370,90 @@ export class Canim {
 	stop_animation(name: string) {
 		let track = this.playing_animations.get(name);
 		let pose = this.playing_poses.get(name);
-		for (const [_, value] of pairs(this.playing_animations)) {
-			if (value.name === name) value.stopping = true;
-		}
 
-		for (const [_, value] of pairs(this.playing_poses)) {
-			if (value.name === name) value.stopping = true;
-		}
+		if (track) track.stopping = true;
+		if (pose) pose.stopping = true;
 	}
 
-	update(delta_time: number) {
-		const weight_sum = new Map<Motor6D, [number, CFrame][]>();
-		const weight_sum_rebased = new Map<Motor6D, [number, CFrame][]>();
-		const bone_totals = new Map<Motor6D, CFrame>();
-		const debug: string[] = [];
+	update_track(
+		track: CanimTrack,
+		weight_sum_rebased: Map<Motor6D, [number, CFrame][]>,
+		weight_sum: Map<Motor6D, [number, CFrame][]>
+	) {
+		let first: customKeyframe | undefined = undefined;
+		let last: customKeyframe | undefined = undefined;
+		for (const [_, keyframe] of pairs(track.sequence!.children)) {
+			if (keyframe.time >= track.time && !last) last = keyframe;
+			else if (keyframe.time <= track.time) first = keyframe;
+		}
 
-		for (const [_, track] of pairs(this.playing_animations)) {
-			if (!track.loaded || !track.sequence) continue;
+		if (!first || !last) {
+			this.debug.push(`Invalid KeyframeSequence for track named ${track.name}, time: ${track.time}`);
+			return;
+		}
 
-			track.time += delta_time * track.speed;
-			if (track.time >= track.length) {
-				if (track.looped) {
-					for (const [_, element] of pairs(track.signals)) element.played = false;
-					track.finished.Fire();
-					track.time -= track.length;
-				} else {
-					track.stopping = true;
-					track.time = track.length;
-				}
+		for (const [_, element] of pairs(track.signals)) {
+			if (track.time >= element.time && !element.played) {
+				element.played = true;
+				track.keyframe_reached.Fire(element.name);
 			}
+		}
 
-			let stopping = false;
-			if (track.stopping) {
-				stopping = true;
-				track.playing = false;
-				track.stopping = false;
-				track.finished.Fire();
-				this.playing_animations.delete(track.name);
-			}
+		track.last_keyframe = first;
+		const bias = map(track.time, first.time, last.time, 0, 1);
+		for (const [_, value] of pairs(first.children)) {
+			const bone = this.identified_bones[value.name];
+			if (bone && bone.Part1) {
+				const a = value;
+				const b = last.children[value.name];
+				const unblended_cframe = a.cframe.Lerp(b.cframe, bias);
 
-			debug.push(`Track name=${track.name} looped=${track.looped} time=${track.time} weight+${track.weight}`);
-			if (track.weight === 0) continue;
+				let disable_transitions = track.transition_disable_all || track.transition_disable[value.name];
+				let weight = track.bone_weights[value.name] ||
+					track.bone_weights["__CANIM_DEFAULT_BONE_WEIGHT"] || [
+						[1, 1, 1],
+						[1, 1, 1],
+					];
 
-			let first: customKeyframe | undefined = undefined;
-			let last: customKeyframe | undefined = undefined;
-			for (const [_, keyframe] of pairs(track.sequence!.children)) {
-				if (keyframe.time >= track.time && !last) last = keyframe;
-				else if (keyframe.time <= track.time) first = keyframe;
-			}
+				let blended_cframe = unblended_cframe;
+				let part1_name = bone.Part1.Name;
 
-			if (!first || !last) {
-				debug.push(`Invalid KeyframeSequence for track named ${track.name}, time: ${track.time}`);
-				continue;
-			}
-
-			for (const [_, element] of pairs(track.signals)) {
-				if (track.time >= element.time && !element.played) {
-					element.played = true;
-					track.keyframe_reached.Fire(element.name);
-				}
-			}
-
-			track.last_keyframe = first;
-			const bias = map(track.time, first.time, last.time, 0, 1);
-			for (const [_, value] of pairs(first.children)) {
-				const bone = this.identified_bones[value.name];
-				if (bone && bone.Part1) {
-					const a = value;
-					const b = last.children[value.name];
-					const unblended_cframe = a.cframe.Lerp(b.cframe, bias);
-
-					let disable_transitions = track.transition_disable_all || track.transition_disable[bone.Name];
-					let weight = track.bone_weights[value.name] ||
-						track.bone_weights["__CANIM_DEFAULT_BONE_WEIGHT"] || [
-							[1, 1, 1],
-							[1, 1, 1],
-						];
-
-					let blended_cframe = unblended_cframe;
-					let part1_name = bone.Part1.Name;
-
+				if (
+					!track.disable_rebasing[part1_name] &&
+					track.rebase_target &&
+					track.rebase_target.keyframe &&
+					track.rebase_target.keyframe.children[part1_name]
+				) {
 					if (
-						!track.disable_rebasing[part1_name] &&
-						track.rebase_target &&
-						track.rebase_target.keyframe &&
-						track.rebase_target.keyframe.children[part1_name]
+						track.rebase_basis &&
+						track.rebase_basis.keyframe &&
+						track.rebase_basis.keyframe.children[part1_name]
 					) {
-						if (
-							track.rebase_basis &&
-							track.rebase_basis.keyframe &&
-							track.rebase_basis.keyframe.children[part1_name]
-						) {
-							let basis = track.rebase_basis.keyframe.children[part1_name].cframe;
-							blended_cframe = blended_cframe.mul(basis.Inverse());
-						} else {
-							blended_cframe = blended_cframe.mul(
-								track.rebase_target.keyframe!.children[part1_name].cframe.Inverse()
-							);
-						}
-
-						let components = blended_cframe.ToEulerAnglesXYZ();
-						blended_cframe = new CFrame(
-							blended_cframe.X * weight[0][0] * track.weight,
-							blended_cframe.Y * weight[0][1] * track.weight,
-							blended_cframe.Z * weight[0][2] * track.weight
-						);
-
+						let basis = track.rebase_basis.keyframe.children[part1_name].cframe;
+						blended_cframe = blended_cframe.mul(basis.Inverse());
+					} else {
 						blended_cframe = blended_cframe.mul(
-							CFrame.Angles(
-								components[0] * weight[1][0] * track.weight,
-								components[1] * weight[1][1] * track.weight,
-								components[2] * weight[1][2] * track.weight
-							)
+							track.rebase_target.keyframe!.children[part1_name].cframe.Inverse()
 						);
+					}
 
-						if (stopping && !disable_transitions) {
+					let components = blended_cframe.ToEulerAnglesXYZ();
+					blended_cframe = new CFrame(
+						blended_cframe.X * weight[0][0] * track.weight,
+						blended_cframe.Y * weight[0][1] * track.weight,
+						blended_cframe.Z * weight[0][2] * track.weight
+					);
+
+					blended_cframe = blended_cframe.mul(
+						CFrame.Angles(
+							components[0] * weight[1][0] * track.weight,
+							components[1] * weight[1][1] * track.weight,
+							components[2] * weight[1][2] * track.weight
+						)
+					);
+
+					if (track.init_transitions) {
+						if (!disable_transitions) {
 							let sum = this.transitions_rebased.get(bone) || [];
 							sum.push([
 								track.priority,
@@ -489,56 +464,128 @@ export class Canim {
 								},
 							]);
 							this.transitions_rebased.set(bone, sum);
-						} else {
-							let sum: [number, CFrame][] = weight_sum_rebased.get(bone) || [];
-							sum.push([track.priority, blended_cframe]);
-							weight_sum_rebased.set(bone, sum);
 						}
 					} else {
-						let components = blended_cframe.ToEulerAnglesXYZ();
+						let sum: [number, CFrame][] = weight_sum_rebased.get(bone) || [];
+						sum.push([track.priority, blended_cframe]);
+						weight_sum_rebased.set(bone, sum);
+					}
+				} else {
+					let components = blended_cframe.ToEulerAnglesXYZ();
 
-						blended_cframe = new CFrame(
-							unblended_cframe.X * weight[0][0] * track.weight,
-							unblended_cframe.Y * weight[0][1] * track.weight,
-							unblended_cframe.Z * weight[0][2] * track.weight
-						);
+					blended_cframe = new CFrame(
+						unblended_cframe.X * weight[0][0] * track.weight,
+						unblended_cframe.Y * weight[0][1] * track.weight,
+						unblended_cframe.Z * weight[0][2] * track.weight
+					);
 
-						blended_cframe = blended_cframe.mul(
-							CFrame.Angles(
-								components[0] * weight[1][0] * track.weight,
-								components[1] * weight[1][1] * track.weight,
-								components[2] * weight[1][2] * track.weight
-							)
-						);
+					blended_cframe = blended_cframe.mul(
+						CFrame.Angles(
+							components[0] * weight[1][0] * track.weight,
+							components[1] * weight[1][1] * track.weight,
+							components[2] * weight[1][2] * track.weight
+						)
+					);
 
-						if (stopping && !disable_transitions) {
-							let sum = this.transitions.get(bone) || [];
-							sum.push([
-								track.priority,
-								{
-									start: tick(),
-									finish: tick() + track.fade_time,
-									cframe: blended_cframe,
-								},
-							]);
-							this.transitions.set(bone, sum);
-						} else {
-							let sum = weight_sum.get(bone) || [];
-							sum.push([track.priority, blended_cframe]);
-							weight_sum.set(bone, sum);
-						}
+					if (track.init_transitions && !disable_transitions) {
+						let sum = this.transitions.get(bone) || [];
+						sum.push([
+							track.priority,
+							{
+								start: tick(),
+								finish: tick() + track.fade_time,
+								cframe: blended_cframe,
+							},
+						]);
+						this.transitions.set(bone, sum);
+					} else {
+						let sum = weight_sum.get(bone) || [];
+						sum.push([track.priority, blended_cframe]);
+						weight_sum.set(bone, sum);
 					}
 				}
 			}
 		}
+	}
+
+	update_track_state(track: CanimTrack, delta_time: number) {
+		if (!track.loaded || !track.sequence) return;
+
+		track.time += delta_time * track.speed;
+		if (track.time >= track.length) {
+			if (track.looped) {
+				for (const [_, element] of pairs(track.signals)) element.played = false;
+				track.finished.Fire();
+				track.time -= track.length;
+			} else {
+				track.stopping = true;
+				track.time = track.length;
+			}
+		}
+
+		let init_transitions = false;
+		if (track.stopping) {
+			init_transitions = true;
+			track.playing = false;
+			track.stopping = false;
+			track.finished.Fire();
+			this.playing_animations.delete(track.name);
+
+			if (track.transition_disable_all) return;
+		}
+
+		track.init_transitions = init_transitions;
+
+		let str = `Track name=${track.name} looped=${track.looped} time=${track.time} weight=${track.weight}`;
+		if (init_transitions) str += " stopping";
+		this.debug.push(str);
+
+		if (track.weight === 0) return;
+
+		return true;
+	}
+
+	update(delta_time: number) {
+		const weight_sum = new Map<Motor6D, [number, CFrame][]>();
+		const weight_sum_rebased = new Map<Motor6D, [number, CFrame][]>();
+		const bone_totals = new Map<Motor6D, CFrame>();
+
+		this.debug = [];
+		this.queue_to_new_animations = true;
+		this.new_animations = new Map();
+
+		let animation_list: CanimTrack[] = [];
+		for (const [_, track] of pairs(this.playing_animations)) {
+			let should_push_to_animations = this.update_track_state(track, delta_time);
+			if (should_push_to_animations) animation_list.push(track);
+		}
+
+		// sometimes the finished event queues more animations this frame so they also need to be iterated over
+		// it can be done above but it makes for non deterministic behavior and flickering
+		for (const [_, track] of pairs(this.new_animations)) {
+			let should_push_to_animations = this.update_track_state(track, delta_time);
+			if (should_push_to_animations) animation_list.push(track);
+			this.playing_animations.set(track.name, track);
+		}
+
+		this.queue_to_new_animations = false;
+
+		// needs to stay consistent
+		table.sort(animation_list, (a, b) => {
+			return a.priority > b.priority;
+		});
+
+		for (const [_, value] of pairs(animation_list)) {
+			this.update_track(value, weight_sum_rebased, weight_sum);
+		}
 
 		for (const [_, track] of pairs(this.playing_poses)) {
-			debug.push(`Pose ${track.name} ${track.time}`);
+			this.debug.push(`Pose ${track.name} ${track.time}`);
 			if (!track.loaded || !track.keyframe) continue;
 
 			const first: customKeyframe | undefined = track.keyframe;
 			if (!first) {
-				debug.push(`Invalid KeyframeSequence for pose named ${track.name}, time: ${track.time}`);
+				this.debug.push(`Invalid KeyframeSequence for pose named ${track.name}, time: ${track.time}`);
 				continue;
 			}
 
@@ -608,7 +655,7 @@ export class Canim {
 				let transition_amount = transitions.size();
 				if (transition_amount === 0) this.transitions_rebased.delete(motor);
 
-				debug.push(`Motor Transition ${motor.Name} ${transition_amount}`);
+				this.debug.push(`Motor Transition ${motor.Name} ${transition_amount}`);
 				for (const [transition_index, [id, transition]] of pairs(transitions)) {
 					if (transition.finish === 0) {
 						transition.finish = tick() + math.huge;
@@ -644,7 +691,7 @@ export class Canim {
 			let transition_amount = transitions.size();
 			if (transition_amount === 0) this.transitions_rebased.delete(motor);
 
-			debug.push(`Motor Transition ${motor.Name} ${transition_amount}`);
+			this.debug.push(`Motor Transition ${motor.Name} ${transition_amount}`);
 			for (const [transition_index, [id, transition]] of pairs(transitions)) {
 				if (transition.finish === 0) {
 					transition.finish = tick() + math.huge;
@@ -665,8 +712,6 @@ export class Canim {
 		}
 
 		for (const [index, value] of bone_totals) index.Transform = value;
-
-		this.debug = debug;
 	}
 }
 
