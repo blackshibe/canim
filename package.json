@@ -1,6 +1,6 @@
 {
 	"name": "@rbxts/canim",
-	"version": "0.2.4",
+	"version": "0.3.1",
 	"description": "Custom animator implementation that allows you to have more control over your animations.",
 	"main": "out/init.lua",
 	"types": "out/index.d.ts",

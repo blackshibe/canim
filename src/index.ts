@@ -99,15 +99,12 @@ export const cache_get_keyframe_sequence = (id: string): KeyframeSequence => {
 const map = (value: number, in_min: number, in_max: number, out_min: number, out_max: number) =>
 	((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
 
-// gets rid of the RuntimeLib
-type partialMetatable = { __tostring: "CanimPose" | "CanimTrack" };
-
-const is_track = (obj: CanimTrack | CanimPose): obj is CanimTrack => {
-	return (getmetatable(obj) as unknown as partialMetatable).__tostring === "CanimTrack";
+const is_pose = (track: CanimTrack | CanimPose): track is CanimPose => {
+	return track.animation_type === animationType.pose;
 };
 
-const is_pose = (obj: CanimTrack | CanimPose): obj is CanimPose => {
-	return (getmetatable(obj) as unknown as partialMetatable).__tostring === "CanimPose";
+const is_track = (track: CanimTrack | CanimPose): track is CanimTrack => {
+	return track.animation_type === animationType.track;
 };
 
 // conversion functions that go from Roblox format to canim
@@ -146,7 +143,14 @@ const convert_keyframe_sequence_instance = (sequence: KeyframeSequence): customK
 	};
 };
 
+export const enum animationType {
+	track,
+	pose,
+}
+
 export class CanimPose {
+	animation_type = animationType.pose;
+
 	keyframe?: customKeyframe;
 	keyframe_reached = new Signal<(name: string) => void>();
 	finished_loading = new Signal<() => void>();
@@ -155,7 +159,7 @@ export class CanimPose {
 
 	// unused
 	transitions: { [index: string]: transition } = {};
-	bone_weights: { [index: string]: number | undefined } = {};
+	bone_weights: { [index: string]: [[number, number, number], [number, number, number]] | undefined } = {};
 
 	name = "animation_track";
 	loaded = false;
@@ -189,6 +193,8 @@ export class CanimPose {
 }
 
 export class CanimTrack {
+	animation_type = animationType.track;
+
 	sequence?: customKeyframeSequence;
 	last_keyframe?: customKeyframe;
 	rebase_target?: CanimPose;
@@ -347,6 +353,7 @@ export class Canim {
 
 		track.playing = true;
 		track.time = 0;
+		track.started.Fire();
 		track.signals.forEach((element) => {
 			element.played = false;
 		});
@@ -358,13 +365,14 @@ export class Canim {
 	}
 
 	play_pose(id: string) {
-		const track = this.animations[id];
-		if (!track) return warn("invalid animation: ", id);
-		if (is_track(track)) throw "attempted to play an animation as a pose";
+		const pose = this.animations[id];
+		if (!pose) return warn("invalid animation: ", id);
+		if (is_track(pose)) throw "attempted to play an animation as a pose";
 
-		this.playing_poses.set(track.name, track);
+		pose.started.Fire();
+		this.playing_poses.set(pose.name, pose);
 
-		return track;
+		return pose;
 	}
 
 	stop_animation(name: string) {
@@ -372,7 +380,7 @@ export class Canim {
 		let pose = this.playing_poses.get(name);
 
 		if (track) track.stopping = true;
-		if (pose) pose.stopping = true;
+		if (pose) this.finish_animation(pose);
 	}
 
 	update_track(
@@ -508,6 +516,18 @@ export class Canim {
 		}
 	}
 
+	private finish_animation(track: CanimTrack | CanimPose) {
+		track.stopping = false;
+		track.finished.Fire();
+
+		if (is_pose(track)) {
+			this.playing_poses.delete(track.name);
+		} else {
+			this.playing_animations.delete(track.name);
+			track.playing = false;
+		}
+	}
+
 	update_track_state(track: CanimTrack, delta_time: number) {
 		if (!track.loaded || !track.sequence) return;
 
@@ -526,10 +546,7 @@ export class Canim {
 		let init_transitions = false;
 		if (track.stopping) {
 			init_transitions = true;
-			track.playing = false;
-			track.stopping = false;
-			track.finished.Fire();
-			this.playing_animations.delete(track.name);
+			this.finish_animation(track);
 
 			if (track.transition_disable_all) return;
 		}
@@ -570,7 +587,8 @@ export class Canim {
 
 		this.queue_to_new_animations = false;
 
-		// needs to stay consistent
+		// needs to stay consistent or otherwise the animations will be layered incorrectly, causing flickering
+		// animations should generally assign different priorities because of this
 		table.sort(animation_list, (a, b) => {
 			return a.priority > b.priority;
 		});
@@ -592,8 +610,31 @@ export class Canim {
 			for (const [_, value] of pairs(first.children)) {
 				const bone = this.identified_bones[value.name];
 				if (bone) {
+					let cframe = value.cframe;
+					let components = cframe.ToEulerAnglesXYZ();
+
+					let weight = track.bone_weights[value.name] ||
+						track.bone_weights["__CANIM_DEFAULT_BONE_WEIGHT"] || [
+							[1, 1, 1],
+							[1, 1, 1],
+						];
+
+					cframe = new CFrame(
+						cframe.X * weight[0][0] * track.weight,
+						cframe.Y * weight[0][1] * track.weight,
+						cframe.Z * weight[0][2] * track.weight
+					);
+
+					cframe = cframe.mul(
+						CFrame.Angles(
+							components[0] * weight[1][0] * track.weight,
+							components[1] * weight[1][1] * track.weight,
+							components[2] * weight[1][2] * track.weight
+						)
+					);
+
 					let sum = weight_sum.get(bone) || [];
-					sum.push([track.priority, value.cframe]);
+					sum.push([track.priority, cframe]);
 					weight_sum.set(bone, sum);
 				}
 			}
