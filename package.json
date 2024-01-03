@@ -26,7 +26,10 @@
 		"access": "public"
 	},
 	"devDependencies": {
-		"@rbxts/compiler-types": "^2.0.4-types.0",
+		"@rbxts/compiler-types": "^2.2.0-types.0",
 		"@rbxts/types": "^1.0.657"
+	},
+	"dependencies": {
+		"roblox-ts": "^2.2.0"
 	}
 }
